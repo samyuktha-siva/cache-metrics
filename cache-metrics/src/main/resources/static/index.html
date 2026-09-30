@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom Cache Library</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>⚡ Custom Cache Library</h1>
+  <span id="status" class="badge offline">Connecting…</span>
+</header>
+<main>
+  <section class="cards">
+    <div class="card"><span>Cache Size</span><b id="m-size">0</b></div>
+    <div class="card"><span>Capacity</span><b id="m-capacity">0</b></div>
+    <div class="card"><span>Hit Rate</span><b id="m-hitRate">0%</b></div>
+    <div class="card"><span>Miss Rate</span><b id="m-missRate">0%</b></div>
+    <div class="card"><span>Total Gets</span><b id="m-total">0</b></div>
+    <div class="card"><span>Evictions</span><b id="m-evictions">0</b></div>
+    <div class="card"><span>Expirations</span><b id="m-expirations">0</b></div>
+  </section>
+
+  <section class="grid">
+    <div class="panel">
+      <h2>Performance <span id="policyBadge" class="badge">LRU</span></h2>
+      <label>Hit rate <span id="hitLbl">0%</span></label>
+      <div class="bar"><div id="hitBar" class="fill green"></div></div>
+      <label>Miss rate <span id="missLbl">0%</span></label>
+      <div class="bar"><div id="missBar" class="fill red"></div></div>
+      <p class="muted">Hits: <b id="m-hits">0</b> · Misses: <b id="m-misses">0</b> · Puts: <b id="m-puts">0</b></p>
+    </div>
+
+    <div class="panel">
+      <h2>Configuration</h2>
+      <div class="row">
+        <input id="cfgCapacity" type="number" min="1" value="5" placeholder="Capacity">
+        <select id="cfgPolicy"><option>LRU</option><option>LFU</option></select>
+        <button id="btnApply">Apply</button>
+      </div>
+      <h2>Put Entry</h2>
+      <div class="row">
+        <input id="putKey" placeholder="Key">
+        <input id="putValue" placeholder="Value">
+        <input id="putTtl" type="number" min="0" placeholder="TTL (sec)">
+        <button id="btnPut">Put</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Get Entry</h2>
+      <div class="row">
+        <input id="getKey" placeholder="Key">
+        <button id="btnGet">Get</button>
+      </div>
+      <p id="getResult" class="result">—</p>
+      <h2>Remove / Clear</h2>
+      <div class="row">
+        <input id="rmKey" placeholder="Key">
+        <button id="btnRemove" class="warn">Remove</button>
+        <button id="btnClear" class="danger">Clear Cache</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Demos</h2>
+      <div class="row">
+        <button id="btnSample">Run Sample Workload</button>
+        <button id="btnConc" class="alt">Run Concurrency Test</button>
+      </div>
+      <p id="demoResult" class="result">—</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Cache Entries</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Key</th><th>Value</th><th>Frequency</th><th>Remaining TTL</th><th>Status</th></tr></thead>
+        <tbody id="entries"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Activity Log</h2>
+    <ul id="log" class="log"></ul>
+  </section>
+</main>
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
